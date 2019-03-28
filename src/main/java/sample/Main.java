@@ -7,8 +7,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Main extends Application {
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+    static LocalDate localDate;
+
 
     public static Stage getStage() {
         return stage;
@@ -18,8 +24,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("Course Net");
+        primaryStage.setScene(new Scene(root, 450, 275));
         stage = primaryStage;
         primaryStage.show();
     }
@@ -29,8 +35,6 @@ public class Main extends Application {
         queryDB queryDB=new queryDB();
         launch(args);
 
-   //     Course course=new Course("372.1.5000","kjk",3.5,3,1,"16-18",true,true,5,"jhhj","jhjh");
-     //   queryDB.insertCourse(course);
         System.out.println("here");
     }
 }
