@@ -1,6 +1,11 @@
 package main.java.sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class queryDB {
 
@@ -44,7 +49,7 @@ public class queryDB {
             pstmt.setInt(8, course.getNumOfworks());
             pstmt.setBoolean(9, course.isAttendence());
             pstmt.setString(10 ,course.getIdCourse());
-            pstmt.setInt(12 ,course.getDay());
+            pstmt.setInt(11 ,course.getDay());
 
 
             pstmt.executeUpdate();
@@ -80,10 +85,71 @@ public class queryDB {
     }
 
     public  Course search_by_courseId(String courseId) throws SQLException {
-
-        String sql = "SELECT Name,Description,LastName,Password,BirthDate,City,Email,Picture "
-                + "FROM Users WHERE courseId = ?";
-
+        String sql = "SELECT Name,Description,PointNum,Sylbos,Rating,CourseHours,Test,numOfWorks,attendance,courseId,Day "
+                + "FROM Coureses WHERE courseId = ?";
         return SearcByValue(courseId, sql);
     }
+
+
+    public ObservableList<Course> getAllCoursePerDay(){
+        String sql = "SELECT * FROM Coureses where Day = 2 ";
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            return Course_Per_Day_ResultSetToObservable(rs);
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+
+    private ObservableList<Course> Course_Per_Day_ResultSetToObservable(ResultSet rs) throws SQLException {
+        List<Course> Courses = new ArrayList<>();
+        while (rs.next()) {
+            Course f = new Course(rs.getString("courseId"),rs.getString("Name") , rs.getDouble("PointNum") , rs.getDouble("Rating") , rs.getInt("Day" ), rs.getString("CourseHours"), rs.getBoolean("Test") , rs.getBoolean("attendance") , rs.getInt("numOfWorks") , rs.getString("Description"), rs.getString("Sylbos")) ;
+
+            Courses.add(f);
+        }
+        if(Courses != null) {
+            ObservableList<Course> observableCourses = FXCollections.observableArrayList(Courses);
+            return observableCourses;
+        }
+        return null;
+    }
+
+    public ObservableList<Course> getAllCourse(){
+        String sql = "SELECT * FROM Coureses";
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            return CourseResultSetToObservable(rs);
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+
+    private ObservableList<Course> CourseResultSetToObservable(ResultSet rs) throws SQLException {
+        List<Course> Courses = new ArrayList<>();
+        while (rs.next()) {
+            Course f = new Course(rs.getString("courseId"),rs.getString("Name") , rs.getDouble("PointNum") , rs.getDouble("Rating") , rs.getInt("Day" ), rs.getString("CourseHours"), rs.getBoolean("Test") , rs.getBoolean("attendance") , rs.getInt("numOfWorks") , rs.getString("Description"), rs.getString("Sylbos")) ;
+
+            Courses.add(f);
+        }
+        if(Courses != null) {
+            ObservableList<Course> observableCourses = FXCollections.observableArrayList(Courses);
+            return observableCourses;
+        }
+        return null;
+    }
+
+
 }
