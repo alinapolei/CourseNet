@@ -78,4 +78,12 @@ public class queryDB {
             return null;
         }
     }
+
+    public  Course search_by_courseId(String courseId) throws SQLException {
+
+        String sql = "SELECT Name,Description,LastName,Password,BirthDate,City,Email,Picture "
+                + "FROM Users WHERE courseId = ?";
+
+        return SearcByValue(courseId, sql);
+    }
 }
