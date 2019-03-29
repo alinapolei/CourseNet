@@ -106,7 +106,11 @@ public class MainScreenController {
                             setText(null);
                         } else {
                             btn.setOnAction(event -> {
-                                addFeedBack();
+                                try {
+                                    addFeedBack(getTableView().getItems().get(getIndex()));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             });
                             setGraphic(btn);
                             setText(null);
@@ -155,7 +159,20 @@ public class MainScreenController {
     setFilters(courses);
     }
 
-    private void addFeedBack() {
+    private void addFeedBack(Course course) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/addReview.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+        addReviewController controller = fxmlLoader.getController();
+        controller.setCourseId(course.getIdCourse());
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root, 550, 300);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(advanceSearchCheckbox.getScene().getWindow());
+        stage.show();
+
     }
 
     private void setFilters(ObservableList<Course> flights) {

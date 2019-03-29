@@ -2,6 +2,7 @@ package main.java.sample;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Review {
@@ -10,12 +11,20 @@ public class Review {
     private String date;
     private String description;
 
-    public Review() { }
 
-    public Review( String CourseId , String description , String d)
+    public Review( String CourseId , String description ,String d)
     {
         this.CourseId = CourseId;
         this.date = d;
+        this.description = description;
+    }
+
+    public Review( String CourseId , String description )
+    {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+        LocalDate localDate = LocalDate.now();
+        this.CourseId = CourseId;
+        this.date = localDate.toString();
         this.description = description;
     }
 
