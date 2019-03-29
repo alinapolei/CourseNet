@@ -61,6 +61,26 @@ public class queryDB {
             return 1;
         }
     }
+
+
+
+    public int insertReview(Review r) {
+        String sql = "INSERT INTO review(Coures_Id,description,Date) VALUES(?,?,?)";
+        try (
+                Connection conn = connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1,  r.getCourseId());
+            pstmt.setString(2,  r.getDescription());
+            pstmt.setString(3,  r.getDate());
+            pstmt.executeUpdate();
+            //conn.close();
+
+            return 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return 1;
+        }
+    }
     private  Course SearcByValue(String parameter, String sql) throws SQLException {
         try (Connection conn = connect();
              PreparedStatement pstmt  = conn.prepareStatement(sql)){
@@ -91,8 +111,8 @@ public class queryDB {
     }
 
 
-    public ObservableList<Course> getAllCoursePerDay(){
-        String sql = "SELECT * FROM Coureses where Day = 2 ";
+    public ObservableList<Course> getAllCoursePerDay(String day){
+        String sql = "SELECT * FROM Coureses where Day =  " + day;
         try (Connection conn = connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
@@ -151,5 +171,34 @@ public class queryDB {
         return null;
     }
 
+    public ObservableList<Review> getAllReviewPerDay(String course)
+    {
+        String sql = "SELECT * FROM review";
+        System.out.println(sql);
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
 
+            return reviewResultSetToObservable(rs,course);
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private ObservableList<Review> reviewResultSetToObservable(ResultSet rs , String course) throws SQLException {
+        List<Review> Reviews = new ArrayList<>();
+        while (rs.next()) {
+            if(rs.getString("Coures_Id").equals(course)) {
+                Review f = new Review(rs.getString("Coures_Id"), rs.getString("description"), rs.getString("Date"));
+                Reviews.add(f);
+            }
+        }
+        if(Reviews != null) {
+            ObservableList<Review> observableReviews = FXCollections.observableArrayList(Reviews);
+            return observableReviews;
+        }
+        return null;
+    }
 }

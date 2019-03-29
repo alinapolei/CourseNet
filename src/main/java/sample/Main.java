@@ -5,9 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.java.sample.queryDB;
+
+import java.time.LocalDate;
 
 public class Main extends Application {
 
+    public static LocalDate localeDate;
     public static Stage getStage() {
         return stage;
     }

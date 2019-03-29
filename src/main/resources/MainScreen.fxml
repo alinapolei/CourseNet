@@ -62,11 +62,11 @@
 
                 <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <Label text="שעת התחלה " textAlignment="CENTER" prefWidth="80" />
-                    <DatePicker fx:id="timePicker" prefWidth="100" >
+                    <ComboBox fx:id="timePicker" prefWidth="100" >
                         <GridPane.margin>
                             <Insets bottom="5" left="5" right="5" top="5" />
                         </GridPane.margin>
-                    </DatePicker>
+                    </ComboBox>
                 </HBox>
                 <CheckBox fx:id="cb_isAttendance" text="ללא נוכחות" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <GridPane.margin>

@@ -1,27 +1,27 @@
 package main.java.View;
 
-import javafx.collections.FXCollections;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import main.java.sample.Controller;
 import main.java.sample.Course;
+import main.java.sample.Review;
 import main.java.sample.queryDB;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.Comparator;
+import java.time.temporal.TemporalAccessor;
 
 public class MainScreenController {
     @FXML
@@ -31,7 +31,7 @@ public class MainScreenController {
     public CheckBox advanceSearchCheckbox;
     public CheckBox cb_isTest;
     public CheckBox cb_isAttendance;
-    public DatePicker timePicker;
+    public ComboBox timePicker= new ComboBox();
     public TableView<Course> coursesTable;
 
     public void initialize(){
@@ -39,6 +39,12 @@ public class MainScreenController {
         ObservableList<Course> courses = query.getAllCourse();
         if(courses != null)
             setTableData(courses);
+        addvaluesComboBox();
+    }
+
+    private void addvaluesComboBox() {
+        for (int i=8;i<21;i++)
+            timePicker.getItems().add(String.valueOf(i)+":00");
     }
 
     private void setTableData(ObservableList<Course> courses) {
@@ -48,9 +54,11 @@ public class MainScreenController {
         TableColumn<Course, String> isAttendanceCol = new TableColumn<Course, String>("נוכחות");
         TableColumn<Course, String> isTestCol = new TableColumn<Course, String>("כולל מבחן");
         TableColumn<Course, String> startTimeCol = new TableColumn<Course, String>("שעות הקורס");
+        TableColumn actionCol1 = new TableColumn();
 
 
-        actionCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+
+        //actionCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
         Callback<TableColumn<Course, String>, TableCell<Course, String>> cellFactory
                 = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
             @Override
@@ -66,7 +74,7 @@ public class MainScreenController {
                             setText(null);
                         } else {
                             btn.setOnAction(event -> {
-                                    watchCourse(getTableView().getItems().get(getIndex()));
+                                watchCourse(getTableView().getItems().get(getIndex()));
                             });
                             setGraphic(btn);
                             setText(null);
@@ -76,12 +84,43 @@ public class MainScreenController {
                 return cell;
             }
         };
+        //actionCol1.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+        Callback<TableColumn<Course, String>, TableCell<Course, String>> btn2
+                = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
+            @Override
+            public TableCell call(final TableColumn<Course, String> param) {
+                final TableCell<Course, String> cell = new TableCell<Course, String>() {
+                    final Button btn = new Button("הוסף ביקורת");
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            btn.setOnAction(event -> {
+                                addFeedBack();
+                            });
+                            setGraphic(btn);
+                            setText(null);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+
+
         actionCol.setCellFactory(cellFactory);
         courseIDCol.setCellValueFactory(new PropertyValueFactory<>("idCourse"));
         courseNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         isAttendanceCol.setCellValueFactory(new PropertyValueFactory<>("attendence"));
         isTestCol.setCellValueFactory(new PropertyValueFactory<>("test"));
         startTimeCol.setCellValueFactory(new PropertyValueFactory<>("hours"));
+        actionCol1.setCellFactory(btn2);
+
 
         /*isTestCol.setCellFactory(column -> {
             TableCell<Course, String> cell = new TableCell<Course, String>() {
@@ -106,9 +145,11 @@ public class MainScreenController {
         courseIDCol.setSortType(TableColumn.SortType.ASCENDING);
         coursesTable.setItems(courses);
         //destinationCol.getColumns().addAll(destinationCountryCol, destinationCityCol);
-        coursesTable.getColumns().addAll(actionCol, courseIDCol, courseNameCol, isAttendanceCol, isTestCol, startTimeCol);
+        coursesTable.getColumns().addAll(actionCol, courseIDCol, courseNameCol, isAttendanceCol, isTestCol, startTimeCol,actionCol1);
+    setFilters(courses);
+    }
 
-        setFilters(courses);
+    private void addFeedBack() {
     }
 
     private void setFilters(ObservableList<Course> flights) {
@@ -144,12 +185,8 @@ public class MainScreenController {
         }
 
         //date
-        if (timePicker.getValue() != null) {
-            Instant instant = Instant.from(timePicker.getValue().atStartOfDay(ZoneId.systemDefault()));
-            String start = java.util.Date.from(instant).toString();
-            if (course.getHours().startsWith(start))
-                return false;
-        }
+        if (timePicker.getSelectionModel().getSelectedItem() != null && !timePicker.getSelectionModel().getSelectedItem().equals("") && !course.getHours().startsWith(timePicker.getSelectionModel().getSelectedItem().toString().split(":")[0]))
+            return false;
 
         //is connection
         if (cb_isAttendance.isSelected() && course.isAttendence())
@@ -163,6 +200,23 @@ public class MainScreenController {
     }
 
     private void watchCourse(Course course) {
+        queryDB query=new queryDB();
+        ObservableList<Review> reviews = query.getAllReviewPerDay(course.getIdCourse());
+
+        /*FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/NotificationDetailsBox.fxml"));
+
+
+        Parent root = null;
+            try {
+                root = (Parent) fxmlLoader.load();
+                NotificationDetailsBoxController controller = fxmlLoader.getController();
+                controller.setData(notification, notificationPane, this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(root, 250, 50);
+            scene.getStylesheets().add(getClass().getResource("../View/Style.css").toExternalForm());
+            notificationPane.getChildren().add(scene.getRoot());*/
     }
 
     public void advanceSearchChacked() {
@@ -171,7 +225,7 @@ public class MainScreenController {
         else {
             advancedSearchBox.setVisible(false);
 
-            timePicker.setValue(null);
+            timePicker.getSelectionModel().clearSelection();
             cb_isAttendance.setSelected(false);
             cb_isTest.setSelected(false);
         }
