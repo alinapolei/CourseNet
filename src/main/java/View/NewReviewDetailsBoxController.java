@@ -19,6 +19,9 @@ public class NewReviewDetailsBoxController {
     @FXML
     public VBox vBox;
     public Label courseName ;
+    public Label courseRank;
+    public int averageRank = 0;
+
     public void initialize(){
 
     }
@@ -41,6 +44,8 @@ public class NewReviewDetailsBoxController {
             }
             Scene scene = new Scene(root, 1000, 50);
             vBox.getChildren().add(scene.getRoot());
+
+            //////////////////averageRank+=review.get
         }
     }
 }
