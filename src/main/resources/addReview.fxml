@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="293.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.View.addReviewController" style="-fx-background-color: radial-gradient(center 50% 50% , radius 200px , #ffebcd, #008080)">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="293.0" prefWidth="569.0" style="-fx-background-color: radial-gradient(center 50% 50% , radius 200px , #ffebcd, #008080)" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.View.addReviewController">
    <children>
       <Button fx:id="addFeedBackBtn" layoutX="40.0" layoutY="225.0" mnemonicParsing="false" onAction="#addReview" text="הוסף ביקורת" />
       <RadioButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="286.0" layoutY="200.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="1">
@@ -23,9 +23,9 @@
       <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="454.0" layoutY="129.0" prefHeight="17.0" prefWidth="64.0" text="ביקורת" />
       <RadioButton layoutX="131.0" layoutY="200.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="5" toggleGroup="$ranked" />
       <Label layoutX="339.0" layoutY="201.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="52.0" text="דירוג" textAlignment="RIGHT" />
-      <Label layoutX="225.0" layoutY="36.0" text="ביקורת חדשה">
+      <Label layoutX="212.0" layoutY="38.0" style="-fx-text-fill: purple;" text="ביקורת חדשה">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Label>
    </children>

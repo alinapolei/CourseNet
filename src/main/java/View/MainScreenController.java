@@ -34,6 +34,7 @@ public class MainScreenController {
     public CheckBox cb_isTest;
     public CheckBox cb_isAttendance;
     public ComboBox timePicker= new ComboBox();
+    public ComboBox timePickerfinish = new ComboBox();
     public TableView<Course> coursesTable;
 
     public void initialize(){
@@ -47,6 +48,8 @@ public class MainScreenController {
     private void addvaluesComboBox() {
         for (int i=8;i<21;i++)
             timePicker.getItems().add(String.valueOf(i)+":00");
+        for (int i=8;i<21;i++)
+            timePickerfinish.getItems().add(String.valueOf(i)+":00");
     }
 
     private void setTableData(ObservableList<Course> courses) {
@@ -193,6 +196,8 @@ public class MainScreenController {
         cb_isTest.selectedProperty().addListener((observable) -> filteredData.setPredicate(course -> filter(course, "")));
         cb_isAttendance.selectedProperty().addListener((observable -> filteredData.setPredicate(course -> filter(course, ""))));
         timePicker.valueProperty().addListener((observable -> filteredData.setPredicate(course -> filter(course, ""))));
+        timePickerfinish.valueProperty().addListener((observable -> filteredData.setPredicate(course -> filter(course, ""))));
+
 
         SortedList<Course> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(coursesTable.comparatorProperty());
@@ -207,8 +212,10 @@ public class MainScreenController {
             return false;
         }
 
-        //date
+        //time
         if (timePicker.getSelectionModel().getSelectedItem() != null && !timePicker.getSelectionModel().getSelectedItem().equals("") && !course.getHours().startsWith(timePicker.getSelectionModel().getSelectedItem().toString().split(":")[0]))
+            return false;
+        if (timePickerfinish.getSelectionModel().getSelectedItem() != null && !timePickerfinish.getSelectionModel().getSelectedItem().equals("") && !course.getHours().split("-")[1].startsWith(timePickerfinish.getSelectionModel().getSelectedItem().toString().split(":")[0]))
             return false;
 
         //is connection
@@ -246,6 +253,8 @@ public class MainScreenController {
             advancedSearchBox.setVisible(false);
 
             timePicker.getSelectionModel().clearSelection();
+            timePickerfinish.getSelectionModel().clearSelection();
+
             cb_isAttendance.setSelected(false);
             cb_isTest.setSelected(false);
         }

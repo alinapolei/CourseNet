@@ -51,7 +51,8 @@
 
             <GridPane fx:id="advancedSearchBox" alignment="CENTER_LEFT" visible="false">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="200" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="220" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="220"/>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="180"/>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="180"/>
                 </columnConstraints>
@@ -60,20 +61,30 @@
                 </rowConstraints>
 
 
-                <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <Label text="שעת התחלה " textAlignment="CENTER" prefWidth="80" />
+                <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
+                    <Label text="שעת התחלה " textAlignment="CENTER" />
                     <ComboBox fx:id="timePicker" prefWidth="100" >
                         <GridPane.margin>
                             <Insets bottom="5" left="5" right="5" top="5" />
                         </GridPane.margin>
                     </ComboBox>
+                    <Label text="שעת סיום " textAlignment="CENTER" prefWidth="80" >
+                        <GridPane.margin>
+                            <Insets bottom="5" left="5" right="5" top="5" />
+                        </GridPane.margin>
+                    </Label>
+                    <ComboBox fx:id="timePickerfinish" prefWidth="100" >
+                        <GridPane.margin>
+                            <Insets bottom="5" left="5" right="5" top="5" />
+                        </GridPane.margin>
+                    </ComboBox>
                 </HBox>
-                <CheckBox fx:id="cb_isAttendance" text="ללא נוכחות" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <CheckBox fx:id="cb_isAttendance" text="ללא נוכחות" GridPane.columnIndex="2" GridPane.rowIndex="0">
                     <GridPane.margin>
                         <Insets bottom="5" left="5" right="5" top="5" />
                     </GridPane.margin>
                 </CheckBox>
-                <CheckBox fx:id="cb_isTest" text="לא כולל מבחן" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <CheckBox fx:id="cb_isTest" text="לא כולל מבחן" GridPane.columnIndex="3" GridPane.rowIndex="0">
                     <GridPane.margin>
                         <Insets bottom="5" left="5" right="5" top="5" />
                     </GridPane.margin>

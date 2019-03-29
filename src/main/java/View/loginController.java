@@ -22,7 +22,7 @@ public class loginController {
     public void actionLogin(ActionEvent actionEvent) throws IOException {
        String mail=mailText.getText();
         if(!bguMail(mail)) {
-            erorMsg.setText("please login with bgu mail");
+            erorMsg.setText("אנא התחבר עם מייל אוניברסיטאי");
             erorMsg.setVisible(true);
         }
             else
