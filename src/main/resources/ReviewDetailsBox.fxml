@@ -21,7 +21,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>
       </TextArea>
-      <Label fx:id="dateLabel" style="-fx-border-radius: 5;" text="Label" GridPane.rowIndex="1">
+      <Label fx:id="dateLabel" style="-fx-border-radius: 5;" text="" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin>

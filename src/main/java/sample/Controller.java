@@ -1,6 +1,9 @@
 package main.java.sample;
 
+
+
 public class Controller {
-    private  static queryDB query=new queryDB();
+    private queryDB query=new queryDB();
+    public queryDB getQuery(){ return query;}
 
 }

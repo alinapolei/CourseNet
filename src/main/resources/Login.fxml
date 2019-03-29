@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.Pane?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="416.0" style="-fx-background-color: #FFD97D;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.View.loginController">
-   <children>
-      <TextField fx:id="mailText" layoutX="197.0" layoutY="81.0" />
-      <Label layoutX="90.0" layoutY="84.0" prefHeight="17.0" prefWidth="88.0" style="-fx-font-size: 14;" text="Mail" />
-      <Label id="title" alignment="CENTER" layoutX="-1.0" layoutY="-2.0" prefHeight="33.0" prefWidth="416.0" style="-fx-font-size: 24;" text="CourseNet" />
-      <Button layoutX="286.0" layoutY="157.0" mnemonicParsing="false" onAction="#actionLogin" prefHeight="25.0" prefWidth="60.0" text="login" />
-      <Label fx:id="erorMsg" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="116.0" prefHeight="17.0" prefWidth="270.0" textFill="RED" />
-   </children>
+<children>
+   <TextField fx:id="mailText" layoutX="197.0" layoutY="81.0" />
+   <Label layoutX="90.0" layoutY="84.0" prefHeight="17.0" prefWidth="88.0" style="-fx-font-size: 14;" text="Mail" />
+   <Label id="title" alignment="CENTER" layoutX="-1.0" layoutY="-2.0" prefHeight="33.0" prefWidth="416.0" style="-fx-font-size: 24;" text="CourseNet" />
+   <Button layoutX="286.0" layoutY="157.0" mnemonicParsing="false" onAction="#actionLogin" prefHeight="25.0" prefWidth="60.0" text="login" />
+   <Label fx:id="erorMsg" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="116.0" prefHeight="17.0" prefWidth="270.0" textFill="RED" />
+</children>
 </Pane>
