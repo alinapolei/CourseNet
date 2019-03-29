@@ -13,7 +13,10 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: radial-gradient(center 50% 50% , radius 200px , #ffebcd, #008080)" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.View.NewReviewDetailsBoxController">
    <center>
-      <VBox fx:id="vBox" BorderPane.alignment="CENTER" />
+      <VBox fx:id="vBox" prefHeight="333.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="15.0" />
+         </BorderPane.margin></VBox>
    </center>
    <left>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
@@ -33,16 +36,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Hyperlink style="-fx-underline: true;" text="סילבוס" textFill="#070505" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Hyperlink alignment="CENTER_RIGHT" contentDisplay="RIGHT" style="-fx-underline: true;" text="תיאור קורס" textAlignment="RIGHT" textFill="#0d0808" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Label fx:id="courseName" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-text-fill: purple;" text="Label" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+            <Hyperlink fx:id="sylabosLink" onMouseClicked="#SylabosClick" style="-fx-underline: true;" text="סילבוס" textFill="#070505" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Hyperlink fx:id="descLink" alignment="CENTER_RIGHT" contentDisplay="RIGHT" style="-fx-underline: true;" text="תיאור קורס" textAlignment="RIGHT" textFill="#0d0808" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Label fx:id="courseName" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
                <opaqueInsets>
                   <Insets top="5.0" />
                </opaqueInsets></Label>
-            <Label id="courseRank" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label id="courseRank" fx:id="courseRank" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
          </children>
          <opaqueInsets>
             <Insets top="5.0" />

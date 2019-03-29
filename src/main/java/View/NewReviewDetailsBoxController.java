@@ -5,12 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import main.java.sample.Course;
 import main.java.sample.Review;
 import main.java.sample.queryDB;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class NewReviewDetailsBoxController {
@@ -19,8 +22,12 @@ public class NewReviewDetailsBoxController {
     @FXML
     public VBox vBox;
     public Label courseName ;
+    public Hyperlink descLink;
+    public Hyperlink sylabosLink;
     public Label courseRank;
-    public int averageRank = 0;
+    public double averageRank = 0;
+
+
 
     public void initialize(){
 
@@ -31,6 +38,7 @@ public class NewReviewDetailsBoxController {
         courseName.setText(course.getName());
         queryDB query=new queryDB();
         ObservableList<Review> reviews = query.getAllReviewPerDay(course.getIdCourse());
+
 
         for (Review review : reviews) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ReviewDetailsBox.fxml"));
@@ -45,7 +53,20 @@ public class NewReviewDetailsBoxController {
             Scene scene = new Scene(root, 1000, 50);
             vBox.getChildren().add(scene.getRoot());
 
-            //////////////////averageRank+=review.get
+            averageRank+=review.getRank();
+        }
+        courseRank.setText("דירוג קורס :" +Double.toString(averageRank/reviews.size()));
+    }
+
+    public void SylabosClick() {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                ClassLoader classLoader = getClass().getClassLoader();
+                File myFile = new File(classLoader.getResource("sylabos/"+course.getIdCourse()+".pdf").getFile());
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                //Control the exception
+            }
         }
     }
 }

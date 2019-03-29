@@ -37,9 +37,10 @@ public class addReviewController {
         else
             add=false;
         if(add) {
-            Review review=new Review(courseId,feedback);
+            Review review=new Review(courseId,feedback,rank);
             review.setDescription(feedback);
             q.insertReview(review);
+            this.addFeedBackBtn.getScene().getWindow().hide();
         }
     }
 }
