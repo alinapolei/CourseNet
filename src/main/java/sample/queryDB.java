@@ -191,7 +191,7 @@ public class queryDB {
         List<Review> Reviews = new ArrayList<>();
         while (rs.next()) {
             if(rs.getString("Coures_Id").equals(course)) {
-                Review f = new Review(rs.getString("Coures_Id"), rs.getString("description"), rs.getString("Date"));
+                Review f = new Review(rs.getString("Coures_Id"), rs.getString("description"), rs.getString("Date"),rs.getDouble("Rank"));
                 Reviews.add(f);
             }
         }

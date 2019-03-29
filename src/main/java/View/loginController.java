@@ -31,7 +31,7 @@ public class loginController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MainScreen.fxml"));
             Parent root = (Parent)fxmlLoader.load();
             MainScreenController controller = fxmlLoader.getController();
-            Scene scene=new Scene(root,1000,600);
+            Scene scene=new Scene(root,1000,650);
             ((Stage) mailText.getScene().getWindow()).setScene(scene);
 
         }
