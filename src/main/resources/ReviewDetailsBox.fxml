@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="127.0" prefWidth="528.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="134.0" prefWidth="514.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.View.ReviewDetailsBoxController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -16,7 +16,7 @@
     <RowConstraints maxHeight="194.00000610351563" minHeight="10.0" prefHeight="28.00000610351563" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TextArea fx:id="descText" prefHeight="77.0" prefWidth="574.0" style="-fx-border-radius: 5; -fx-background-color: transparent;">
+      <TextArea fx:id="descText" editable="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="102.0" prefWidth="545.0" style="-fx-border-radius: 5; -fx-background-color: transparent; -fx-text-alignment: center" GridPane.halignment="RIGHT">
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>

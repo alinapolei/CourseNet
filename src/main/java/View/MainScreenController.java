@@ -207,9 +207,9 @@ public class MainScreenController {
 
     private void watchCourse(Course course) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/courseShow.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
         NewReviewDetailsBoxController controller = fxmlLoader.getController();
         controller.setCourse(course);
-        Parent root = (Parent)fxmlLoader.load();
 
 
         Stage stage = new Stage();

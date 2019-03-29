@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import main.java.sample.Course;
 import main.java.sample.Review;
@@ -17,7 +18,14 @@ public class NewReviewDetailsBoxController {
 
     @FXML
     public VBox vBox;
+    public Label courseName ;
     public void initialize(){
+
+    }
+
+    public void setCourse(Course c){
+        course = c;
+        courseName.setText(course.getName());
         queryDB query=new queryDB();
         ObservableList<Review> reviews = query.getAllReviewPerDay(course.getIdCourse());
 
@@ -31,12 +39,8 @@ public class NewReviewDetailsBoxController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Scene scene = new Scene(root, 1000, 100);
+            Scene scene = new Scene(root, 1000, 50);
             vBox.getChildren().add(scene.getRoot());
         }
-    }
-
-    public void setCourse(Course c){
-        course = c;
     }
 }
