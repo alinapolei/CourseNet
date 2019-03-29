@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.java.sample.Course;
 import main.java.sample.Review;
@@ -74,7 +76,11 @@ public class MainScreenController {
                             setText(null);
                         } else {
                             btn.setOnAction(event -> {
-                                watchCourse(getTableView().getItems().get(getIndex()));
+                                try {
+                                    watchCourse(getTableView().getItems().get(getIndex()));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             });
                             setGraphic(btn);
                             setText(null);
@@ -199,24 +205,21 @@ public class MainScreenController {
         return true;
     }
 
-    private void watchCourse(Course course) {
-        queryDB query=new queryDB();
-        ObservableList<Review> reviews = query.getAllReviewPerDay(course.getIdCourse());
+    private void watchCourse(Course course) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/courseShow.fxml"));
+        NewReviewDetailsBoxController controller = fxmlLoader.getController();
+        controller.setCourse(course);
+        Parent root = (Parent)fxmlLoader.load();
 
-        /*FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/NotificationDetailsBox.fxml"));
 
+        Stage stage = new Stage();
+        Scene scene = new Scene(root, 700, 430);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(advanceSearchCheckbox.getScene().getWindow());
+        stage.show();
 
-        Parent root = null;
-            try {
-                root = (Parent) fxmlLoader.load();
-                NotificationDetailsBoxController controller = fxmlLoader.getController();
-                controller.setData(notification, notificationPane, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Scene scene = new Scene(root, 250, 50);
-            scene.getStylesheets().add(getClass().getResource("../View/Style.css").toExternalForm());
-            notificationPane.getChildren().add(scene.getRoot());*/
     }
 
     public void advanceSearchChacked() {
